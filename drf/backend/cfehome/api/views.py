@@ -10,6 +10,8 @@ def api_home(request, *args, **kwargs):
     # request --> HttpRequest -> Django 
     # print(dir(request))
     # request.body
+    print(request.GET)  # url query params
+    print(request.POST)  
     body = request.body # byte string of JSON data
     data = {}
     try: 
@@ -18,7 +20,9 @@ def api_home(request, *args, **kwargs):
         pass
     print(data)
     # data['headers'] = request.headers # request.META -> older versions of Django
-    print(request.headers)
-    json.dumps(dict(request.headers))
+    #print(request.headers)
+    #json.dumps(dict(request.headers))
+    data['params'] = dict(request.GET)
+    data['headers'] = dict(request.headers)
     data['content_type'] = request.content_type
     return JsonResponse(data)
